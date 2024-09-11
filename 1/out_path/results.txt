@@ -1,0 +1,55 @@
+cathedral.jpg
+Translation Vector:  (5, 2)
+Translation Vector:  (12, 3)
+
+monastery.jpg
+Translation Vector:  (-3, 2)
+Translation Vector:  (3, 2)
+
+tobolsk.jpg
+Translation Vector:  (3, 2)
+Translation Vector:  (6, 3)
+
+church.tif
+Translation Vector:  (25, 4)
+Translation Vector:  (58, -4)
+
+emir.tif
+Translation Vector:  (49, 24)
+Translation Vector:  (107, 40)
+
+harvesters.tif
+Translation Vector:  (60, 17)
+Translation Vector:  (124, 14)
+
+icon.tif
+Translation Vector:  (42, 17)
+Translation Vector:  (90, 23)
+
+lady.tif
+Translation Vector:  (56, 9)
+Translation Vector:  (120, 13)
+
+melons.tif
+Translation Vector:  (80, 10)
+Translation Vector:  (177, 13)
+
+onion_church.tif
+Translation Vector:  (51, 26)
+Translation Vector:  (107, 35)
+
+sculpture.tif
+Translation Vector:  (33, -11)
+Translation Vector:  (139, -26)
+
+self_portrait.tif
+Translation Vector:  (78, 29)
+Translation Vector:  (176, 37)
+
+three_generations.tif
+Translation Vector:  (54, 12)
+Translation Vector:  (111, 9)
+
+train.tif
+Translation Vector:  (41, 0)
+Translation Vector:  (85, 29)
