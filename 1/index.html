@@ -48,12 +48,12 @@
                 This was particularly challenging as it was hard to find the exact translational vector. Some key challenges including finding the proper heuristic to evaluate
                 a good overlay of channels, and implementing a fast algorithm to quickly align high-res images.</p>
 
-            <p>For my implementation, I first used a naive approach of scanning 20x20 pixel ranges for the entire image and trying to align some low-res images. I used an L2 norm for my heuristic to determine
+            <p>For my implementation, I first used a naive approach of scanning [-20, 20] pixel ranges for the entire image and trying to align some low-res images. I used an L2 norm for my heuristic to determine
                 proper overlay. I used the B channel as the reference frame and aligned the R and G seperately, and then overlayed them. This implementation worked very well for low resolution images.
                 For higher resolution images, however, I was unable to properly align images as the algorithm was too slow. I implemented the Pyramid Image Processing algorithm to improve the speed of my Processing
-                my dynamically downsampling my images until I reached some arbitrary low-resolution, and then used my naive approach to obtain a base-level translation. Once I knew my base level translation
+                by dynamically downsampling the images until I reached some arbitrary low-resolution, and then used my naive approach to obtain a base-level translation. Once I knew my base level translation
                 I then scaled it by my downsampling factor and incorporated it into my recursive search logic to narrow down and fine tune how much I needed to translate in higher-res. For the higher-res images
-                I used a 3x3 pixel range for fine-tuning my search and only using 20x20 for highest level of downsampled low-res image. This solved my speed problem, but my L2 norm was still not a very good heuristic
+                I used a [-3, 3] pixel range for fine-tuning my search and only using [-20, 20] for highest level of downsampled low-res image. This solved my speed problem, but my L2 norm was still not a very good heuristic
                 as brightness was not captured equally across different channels. Thus, I used edge-detection from "skimage" library to only obtain edges of an image and then apply an L2 norm, and that gave me very promising results
                 that I am presenting today!
             </p>
