@@ -19,7 +19,7 @@ body {
 }
 
 header {
-    background-color: #f65c5c;
+    background-color: #f45c5c;
     padding: 20px 0;
     border-bottom: 2px solid #ddd;
     text-align: center;
@@ -93,6 +93,12 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 h1, h2{
