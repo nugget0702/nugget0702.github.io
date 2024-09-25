@@ -19,7 +19,7 @@ body {
 }
 
 header {
-    background-color: #f45c5c;
+    background-color: #f99090;
     padding: 20px 0;
     border-bottom: 2px solid #ddd;
     text-align: center;
@@ -101,7 +101,7 @@ body, html {
     padding: 20px;
 }
 
-h1, h2{
+h1,h2{
     text-align: center;
 }
 
@@ -141,6 +141,6 @@ h1, h2{
 }
 
 #overlay img {
-    max-width: 300%;
-    max-height: 300%;
+    max-width: 90%;
+    max-height: 90%;
 }
