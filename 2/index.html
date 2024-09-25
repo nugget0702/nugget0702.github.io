@@ -12,7 +12,7 @@
     <header>
         <div class="container">
             <h1>Fun with Filters and Frequencies!</h1>
-            <p>Using Gaussian Frequencies to create intersting filters and effects with images!</p>
+            <p>Using Gaussian Frequencies to create interesting filters and effects with images!</p>
             <br>
             <h2> Author: Nakul Srikanth </h2>
         </div>
@@ -26,73 +26,73 @@
             <h3>1.1 Finite Difference Operator</h3>
             <p>I used the D_X and D_Y operators to get the partial gaussians of the cameraman image in the X and Y direction. 
                 Upon obtaining the partial gaussians, I then used the L2 norm formula to obtain the gradient magnitude image.
-                Then, I chose a threshold of 0.35, to obtain the binarized image.</p>
-            <div class="image-gallery grid-4x1">
+                Then, I chose a threshold of 0.35, to obtain the binarized image.
+            </p>
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/cameraman_image.png" alt="Screenshot 1">
+                    <img src="out_path/cameraman_image.png" alt="Screenshot 1" onclick="showImage(this)">
                     <p class="caption">Cameraman</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/gradient_magnitude.png" alt="Screenshot 2">
+                    <img src="out_path/gradient_magnitude.png" alt="Screenshot 2" onclick="showImage(this)">
                     <p class="caption">Gradient Magnitude</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/binarized_gradient_magnitude.png" alt="Screenshot 3">
+                    <img src="out_path/binarized_gradient_magnitude.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">Binarized Gradient Magnitude</p>
                 </div>
             </div>
-
-            <br>
 
             <h3>1.2 Derivative of Gaussian (DoG) Filter</h3>
             <p>Some differneces in using a blurred image vs the original image in finding the magnitude and edge images, 
                 is that the edges are much smoother and connect more of the dots. This happens because taking the gaussian of the original images
                 smoothes sharp corners which are high frequencies, and allows for smoother edge detection.
             </p>
-            <div class="image-gallery grid-4x1">
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/cameraman_image.png" alt="Screenshot 1">
+                    <img src="out_path/cameraman_image.png" alt="Screenshot 1" onclick="showImage(this)">
                     <p class="caption">Cameraman</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/blurred_cameraman.png" alt="Screenshot 2">
+                    <img src="out_path/blurred_cameraman.png" alt="Screenshot 2" onclick="showImage(this)">
                     <p class="caption">Blurred Cameraman</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/blurred_gradient_magnitude.png" alt="Screenshot 3">
+                    <img src="out_path/blurred_gradient_magnitude.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">Blurred Gradient Magnitude</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/binarized_blurred_gradient_magnitude.png" alt="Screenshot 4">
+                    <img src="out_path/binarized_blurred_gradient_magnitude.png" alt="Screenshot 4" onclick="showImage(this)">
                     <p class="caption">Binarized Blurred Gradient Magnitude</p>
                 </div>
             </div>
+
 
             <p>Derivative of Gaussian (DoG): This method also gives us similar results as the previous version. 
                 Here we convolve the gaussians in the X and Y direction to create DoG filters. We then use these filters to obtain
                 smooth edges, similar to previous results.
             </p>
-            <div class="image-gallery grid-4x1">
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/DoG_dx.png" alt="Screenshot 1">
+                    <img src="out_path/DoG_dx.png" alt="Screenshot 1" onclick="showImage(this)">
                     <p class="caption">DoG D_X</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/DoG_dy.png" alt="Screenshot 2">
+                    <img src="out_path/DoG_dy.png" alt="Screenshot 2" onclick="showImage(this)">
                     <p class="caption">DoG D_Y</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/DoG_gradient_magnitude.png" alt="Screenshot 3">
+                    <img src="out_path/DoG_gradient_magnitude.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">DoG Gradient Magnitude</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/DoG_binarized_gradient_magnitude.png" alt="Screenshot 4">
+                    <img src="out_path/DoG_binarized_gradient_magnitude.png" alt="Screenshot 4" onclick="showImage(this)">
                     <p class="caption">DoG Binarized Gradient Magnitude</p>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <section class="project-section">
         <div class="container">
             <h2>Part 2: Fun with Frequencies!</h2>
@@ -104,21 +104,21 @@
                 of the original image by taking the gaussian of the original image (obtaining low-pass) and then subtracting 
                 from original image, to get high-pass.
             </p>
-            <div class="image-gallery grid-4x1">
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/taj.png" alt="Screenshot 1">
+                    <img src="out_path/taj.png" alt="Screenshot 1" onclick="showImage(this)">
                     <p class="caption">Taj Mahal</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/gaussian_taj.png" alt="Screenshot 2">
+                    <img src="out_path/gaussian_taj.png" alt="Screenshot 2" onclick="showImage(this)">
                     <p class="caption">Gaussian of Taj Mahal</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/high_frequency_taj.png" alt="Screenshot 3">
+                    <img src="out_path/high_frequency_taj.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">High-Pass Filter of Taj Mahal</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/sharpened_taj.png" alt="Screenshot 4">
+                    <img src="out_path/sharpened_taj.png" alt="Screenshot 4" onclick="showImage(this)">
                     <p class="caption">Sharpened Taj Mahal</p>
                 </div>
             </div>
@@ -126,21 +126,21 @@
             <p>Using an already sharp image of Berkeley, our method tends to provide an even sharper effect by 
                 emphasizing the higher frequencies in the lines and edges of the images of Berkeley.
             </p>
-            <div class="image-gallery grid-4x1">
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/berkeley.png" alt="Screenshot 1">
+                    <img src="out_path/berkeley.png" alt="Screenshot 1" onclick="showImage(this)">
                     <p class="caption">Berkeley</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/gaussian_berkeley.png" alt="Screenshot 2">
+                    <img src="out_path/gaussian_berkeley.png" alt="Screenshot 2" onclick="showImage(this)">
                     <p class="caption">Gaussian of Berkeley</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/high_frequency_berkeley.png" alt="Screenshot 3">
+                    <img src="out_path/high_frequency_berkeley.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">High-Pass Filter of Berkeley</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/sharpened_berkeley.png" alt="Screenshot 4">
+                    <img src="out_path/sharpened_berkeley.png" alt="Screenshot 4" onclick="showImage(this)">
                     <p class="caption">Sharpened Berkeley</p>
                 </div>
             </div>
@@ -151,84 +151,84 @@
                 a high-pass filter by subtracting its gaussian by the original image, and super-impose 
                 them with proper alignment to obtain a cool hybrid-effect.
             </p>
-            <div class="image-gallery grid-4x1">
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/DerekPicture.jpg" alt="Screenshot 1">
+                    <img src="out_path/DerekPicture.jpg" alt="Screenshot 1" onclick="showImage(this)">
                     <p class="caption">Human</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/nutmeg.jpg" alt="Screenshot 2">
+                    <img src="out_path/nutmeg.jpg" alt="Screenshot 2" onclick="showImage(this)">
                     <p class="caption">Cat</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/human_cat.png" alt="Screenshot 3">
+                    <img src="out_path/human_cat.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">Human + Cat</p>
                 </div>
             </div>
-            <div class="image-gallery grid-4x1">
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/arnold.webp" alt="Screenshot 1">
+                    <img src="out_path/arnold.webp" alt="Screenshot 1" onclick="showImage(this)">
                     <p class="caption">Arnold Schwarzenegger</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/lion.jpg" alt="Screenshot 2">
+                    <img src="out_path/lion.jpg" alt="Screenshot 2" onclick="showImage(this)">
                     <p class="caption">Lion</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/lion_arnold.png" alt="Screenshot 3">
+                    <img src="out_path/lion_arnold.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">Lion + Arnold</p>
                 </div>
             </div>
             <br>
-            <div class="image-gallery grid-4x1">
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/devil.jpg" alt="Screenshot 2">
+                    <img src="out_path/devil.jpg" alt="Screenshot 2" onclick="showImage(this)">
                     <p class="caption">Devil</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/clown.jpg" alt="Screenshot 1">
+                    <img src="out_path/clown.jpg" alt="Screenshot 1" onclick="showImage(this)">
                     <p class="caption">Clowm</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/clown_devil.png" alt="Screenshot 3">
+                    <img src="out_path/clown_devil.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">Clown + Devil</p>
                 </div>
             </div>
             <br>
-            <div class="image-gallery grid-4x1">
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/phil.jpg" alt="Screenshot 1">
+                    <img src="out_path/phil.jpg" alt="Screenshot 1" onclick="showImage(this)">
                     <p class="caption">Dr. Phil</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/harvey.jpg" alt="Screenshot 2">
+                    <img src="out_path/harvey.jpg" alt="Screenshot 2" onclick="showImage(this)">
                     <p class="caption">Steve Harvey</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/phil_harvey.png" alt="Screenshot 3">
+                    <img src="out_path/phil_harvey.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">Steve Phil + Dr. Harvey</p>
                 </div>
             </div>
             <br>
-            <div class="image-gallery grid-4x1">
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/phil_fourier.png" alt="Screenshot 1">
+                    <img src="out_path/phil_fourier.png" alt="Screenshot 1" onclick="showImage(this)">
                     <p class="caption">Phil Fourier</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/harvey_fourier.png" alt="Screenshot 2">
+                    <img src="out_path/harvey_fourier.png" alt="Screenshot 2" onclick="showImage(this)">
                     <p class="caption">Harvey Fourier</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/phil_gaussian_fourier.png" alt="Screenshot 3">
+                    <img src="out_path/phil_gaussian_fourier.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">Phil Gaussian Fourier</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/harvey_gaussian_fourier.png" alt="Screenshot 3">
+                    <img src="out_path/harvey_gaussian_fourier.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">Harvery Gaussian Fourier</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/hybrid_fourier.png" alt="Screenshot 3">
+                    <img src="out_path/hybrid_fourier.png" alt="Screenshot 3" onclick="showImage(this)">
                     <p class="caption">Hybrid Fourier</p>
                 </div>
             </div>
@@ -238,74 +238,131 @@
             <br>
 
             <h3>2.3: Gaussian and Laplacian Stacks</h3>
-            <p>Description: Implementation of mesh deformation using Laplacian smoothing.</p>
+            <p>To build my Gaussian stacks, I first started with the gaussian of my original image, 
+                and took the second order gaussian and so on for some N=8 levels.
+                To build my laplacian stacks, I took an [i] and [i+2] gaussian level images and subtracted 
+                them to obtain the i-th laplacian in the stack.
+                I also remembered to place the last gaussian at level N=8 at the end of my laplacian stack, 
+                in preperation of the laplacian collapse ot reconstruct the original image.
+            </p>
             <br>
             <h3>2.4: Multiresolution Blending (a.k.a. the oraple!)</h3>
-            <p>Description: Implementation of mesh deformation using Laplacian smoothing.</p>
-            <div class="image-gallery grid-4x1">
+            <p>To obtain a Multiresolution Blending, I first obtained a Gaussian stack for my vertical mask.
+                Upon obtaining this, I multiplied each layer of my laplacian stack with each layer of the mask 
+                gaussian stack. This created a masked_laplacian stack for the apple and orange images respectively. 
+                (Note: Mask was flipped along the vertical for one of the images, to blend two images side-by-side) 
+                I added the masked_laplacian stacks for the apple and orange to create a blended laplacian stack for the 
+                oraple. Finally I collapsed the oraple laplacian stack to obtain the blended image.
+            </p>
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/L1_masked_apple.png" alt="Screenshot 1">
-                    <p class="caption">Caption for Screenshot 1</p>
+                    <img src="out_path/L1_masked_apple.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">L1: Masked Apple</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/L2_masked_apple.png" alt="Screenshot 2">
-                    <p class="caption">Caption for Screenshot 2</p>
+                    <img src="out_path/L2_masked_apple.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">L2: Masked Apple</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/L5_masked_apple.png" alt="Screenshot 3">
-                    <p class="caption">Caption for Screenshot 3</p>
+                    <img src="out_path/L5_masked_apple.png" alt="Screenshot 3" onclick="showImage(this)">
+                    <p class="caption">L5: Masked Apple</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/L8_masked_apple.png" alt="Screenshot 4">
-                    <p class="caption">Caption for Screenshot 4</p>
-                </div>
-            </div>
-            <div class="image-gallery grid-4x1">
-                <div class="image-item">
-                    <img src="out_path/L1_masked_orange.png" alt="Screenshot 1">
-                    <p class="caption">Caption for Screenshot 1</p>
-                </div>
-                <div class="image-item">
-                    <img src="out_path/L2_masked_orange.png" alt="Screenshot 2">
-                    <p class="caption">Caption for Screenshot 2</p>
-                </div>
-                <div class="image-item">
-                    <img src="out_path/L5_masked_orange.png" alt="Screenshot 3">
-                    <p class="caption">Caption for Screenshot 3</p>
-                </div>
-                <div class="image-item">
-                    <img src="out_path/L8_masked_orange.png" alt="Screenshot 4">
-                    <p class="caption">Caption for Screenshot 4</p>
+                    <img src="out_path/L8_masked_apple.png" alt="Screenshot 4" onclick="showImage(this)">
+                    <p class="caption">L8: Masked Apple</p>
                 </div>
             </div>
-            <div class="image-gallery grid-4x1">
+            <div class="image-gallery">
                 <div class="image-item">
-                    <img src="out_path/L1_oraple.png" alt="Screenshot 1">
-                    <p class="caption">Caption for Screenshot 1</p>
+                    <img src="out_path/L1_masked_orange.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">L1: Masked Orange</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/L2_oraple.png" alt="Screenshot 2">
-                    <p class="caption">Caption for Screenshot 2</p>
+                    <img src="out_path/L2_masked_orange.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">L2: Masked Orange</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/L5_oraple.png" alt="Screenshot 3">
-                    <p class="caption">Caption for Screenshot 3</p>
+                    <img src="out_path/L5_masked_orange.png" alt="Screenshot 3" onclick="showImage(this)">
+                    <p class="caption">L5: Masked Orange</p>
                 </div>
                 <div class="image-item">
-                    <img src="out_path/oraple.png" alt="Screenshot 4">
-                    <p class="caption">Caption for Screenshot 4</p>
+                    <img src="out_path/L8_masked_orange.png" alt="Screenshot 4" onclick="showImage(this)">
+                    <p class="caption">L8: Masked Orange</p>
+                </div>
+            </div>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/L1_oraple.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">L1: Oraple</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/L2_oraple.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">L2: Oraple</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/L5_oraple.png" alt="Screenshot 3" onclick="showImage(this)">
+                    <p class="caption">L5: Oraple</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/oraple.png" alt="Screenshot 4" onclick="showImage(this)">
+                    <p class="caption">L8: Oraple (Blended Image!)</p>
                 </div>
             </div>
             <br>
+
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/watermelon.jpg" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">L1: Oraple</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/cantaloupe.jpg" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">L2: Oraple</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/circular_mask.png" alt="Screenshot 3" onclick="showImage(this)">
+                    <p class="caption">L5: Oraple</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/watermelon_cantaloupe.png" alt="Screenshot 4" onclick="showImage(this)">
+                    <p class="caption">L8: Oraple (Blended Image!)</p>
+                </div>
+            </div>
+            <br>
+
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/woman.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">L1: Oraple</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/robot.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">L2: Oraple</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/quadrant_mask.png" alt="Screenshot 3" onclick="showImage(this)">
+                    <p class="caption">L5: Oraple</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/woman_robot.png" alt="Screenshot 4" onclick="showImage(this)">
+                    <p class="caption">L8: Oraple (Blended Image!)</p>
+                </div>
+            </div>
+            <br>
+            
         </div>
     </section>
 
+    <div id="overlay" onclick="hideImage()">
+        <img id="overlay-image" src="" alt="">
+    </div>
+
     <footer>
         <div class="container">
-            <p>&copy; 2024 Your Name | Computer Graphics Portfolio</p>
+            <p>&copy; 2024 Nakul Srikanth | Project 2 - CS 280</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
