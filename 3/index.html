@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Portfolio - Computer Vision Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Face Morphing!</h1>
+            <p>Using transformations and interpolation to morph faces!</p>
+            <br>
+            <h2> Author: Nakul Srikanth </h2>
+        </div>
+    </header>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>Part 1. Defining Correspondences</h2>
+            <br>
+            <p>
+                For this section, I chose an image of myself and an image of George Clooney to create a midpoint face and morph my face
+                into George Clooney. First, I used a correspondence selection tool, implemented by a previous student, to obtain a .json 
+                file of all the correspondance points for the two images that I wanted to morph. Then, I used the Delaunay triangulation 
+                algorithm to create a triangular mesh shape for the images.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/nakul_triangulation.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Nakul Srikanth Triangulation</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/george_triangulation.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">George Clooney Triangulation</p>
+                </div>
+            </div>
+    </section>
+    
+    <section class="project-section">
+        <div class="container">
+            <h2>Part 2. Computing the "Mid-way Face"</h2>
+            <br>
+            <p>
+                Utilizing our developments from the previous section, I used the correspondance points from both images to find the midpoints 
+                (average of the correspondances) between the two images. Using these midpoints, I used the same triangulation algorithm to 
+                obtain a midpoint triangulation mesh shape. Now using this midpoint shape and the two original image shapes, I first found the 
+                affine transformation between an original image and the midpont. I then used the inverse warp from the midpoint to the original image
+                to obtain pixels in the original image that are warped in the midpoint image. I then used bilinar interpolation to estimate pixels values
+                from the original image to the midpoint image. I repeated the process for the second image and then average the color by cross-dissolving them.
+                The final result was a "Mid-way Face" between myself and George Clooney.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/nakul.jpg" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Nakul Srikanth</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/nakul_george_midpoint.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">Nakul - Clooney : Midpoint Face</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/george_small.jpg" alt="Screenshot 3" onclick="showImage(this)">
+                    <p class="caption">George Clooney</p>
+                </div>
+            </div>
+            <br>
+            <p>
+                Another example with Bollywood actor, Shah Rukh Khan.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/nakul.jpg" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Nakul Srikanth</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/nakul_srk_midpoint.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">Nakul - SRK : Midpoint Face</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/srk_small.jpg" alt="Screenshot 3" onclick="showImage(this)">
+                    <p class="caption">Shah Rukh Khan</p>
+                </div>
+            </div>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>Part 3. The Morph Sequence</h2>
+            <br>
+            <p>
+                For the morph sequence, we just had to extend our code from the previous section, and create a function called morph() to 
+                reproduce all the steps from Step 2 for any two images. Using this function, we can then obtain a series of 20-50 morph images
+                with warp_fractiion and dissolve_fraction, linearly increasing from [0, 1] in every sequence. Then putting all the morphed images together
+                in a GIF file reproduces the morphing sequence.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/nakul-clooney.gif" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Nakul - George Clooney</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/nakul-srk.gif" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Nakul - Shah Rukh Khan</p>
+                </div>
+            </div>
+            <br>
+    </section>
+
+
+    <section class="project-section">
+        <div class="container">
+            <h2>Part 4. The "Mean face" of a population</h2>
+            <br>
+            <p>
+                Using the Braziliian Faces dataset, I used the ENTIRE population to create a mean face, using techniques from previous steps.
+            </p>
+            <div class="image-item">
+                <img src="out_path/mean_face.png" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Mean Face</p>
+            </div>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/136a.jpg.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Example 0</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/example0.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Example 0 to Mean</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/81a.jpg.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Example 1</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/example1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Example 1 to Mean</p>
+                </div>
+            </div>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/5a.jpg.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Example 2</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/example2.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Example 2 to Mean</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/39a.jpg.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Example 3</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/example3.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Example 3 to Mean</p>
+                </div>
+            </div>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/161a.jpg.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Example 4</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/example4.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Example 4 to Mean</p>
+                </div>
+            </div>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/mean_face.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Mean Face</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/nakul_to_mean.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Nakul to Mean</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/mean_to_nakul.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Mean to Nakul</p>
+                </div>
+            </div>
+            <br>
+    </section>
+
+
+    <section class="project-section">
+        <div class="container">
+            <h2>Part 5. Caricatures: Extrapolating from the mean</h2>
+            <br>
+            <p>
+                Using the mean face obtained from the previous steps, I have created some caricatures for different values of alpha. 
+                This is done by weighting the mean_face_pts by alpha and the normal_face_pt by (1-alpha) for various values of alpha.
+            </p>
+
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/caricature-2.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Alpha = -2</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/caricature-0.5.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Alpha = -0.5</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/caricature0.5.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Alpha = 0.5</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/caricature1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Alpha = 1</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/caricature2.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Alpha = 2</p>
+                </div>
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>Bells and Whistles: US Presidents Morph Sequence</h2>
+            <br>
+            <p>
+                Using the official portraits of US Presidents, I have created a morph sequence for all the presidents in the order that they were in office.
+            </p>
+            <div class="image-item">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/k6CPxlayT9s?si=sq8vY3f9-N779wZ_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <br>
+    </section>
+
+    <div id="overlay" onclick="hideImage()">
+        <img id="overlay-image" src="" alt="">
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Nakul Srikanth | Project 3 - CS 280</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
