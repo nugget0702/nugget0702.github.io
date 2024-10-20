@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Portfolio - Computer Vision Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>IMAGE WARPING and MOSAICING!</h1>
+            <p>Using homographies and interpolation to stitch images!</p>
+            <br>
+            <h2> Author: Nakul Srikanth </h2>
+        </div>
+    </header>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>Shoot the Pictures</h2>
+            <br>
+            <p>
+                I shot three pictures of my desk. I ensured to rotate about the camera axis to obtain pictures from different angles.
+                I used pictures from the left, center, and right angles for my warping and mosaics examples below.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/room1.JPG" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Desk Left</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/room2.JPG" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">Desk Middle</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/room3.JPG" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">Desk Right</p>
+                </div>
+            </div>
+    </section>
+    
+    <section class="project-section">
+        <div class="container">
+            <h2>Recover Homographies</h2>
+            <br>
+            <p>
+                To recover the homographies, I followed the equations below, and this basically comprised of my functions.
+            </p>
+            <img src="out_path/homography_eq.png" alt="Screenshot 1" >
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>Warp the Images</h2>
+            <br>
+            <p>
+                To warp the images, I used the homography to forward warp four corners of the original image. I then found
+                all the pixels inside the warped corners and then inverse warped them to map them to the original image. I then
+                used interpolation to map pixels form the original image to the warped image.
+            </p>
+            <div class="image-gallery">
+                    <img src="out_path/imwarped.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Warped Room Left to the frame of Room Center</p>
+            </div>
+            <br>
+    </section>
+
+
+    <section class="project-section">
+        <div class="container">
+            <h2>Image Rectification</h2>
+            <br>
+            <p>
+                For rectification, I supplied correspondances by manually clicking corners for the image as my first set of points.
+                For the second set of points, I just used np.array([[0, 0], [400, 0], [0, 200], [400, 200]]) as my target rectification.
+                I then computed the homography for the two sets of points. Using this homography, I warped the image using the previous step
+                to get our rectification.
+            </p>
+            <div class="image-item">
+                <img src="out_path/flag.JPG" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Flag</p>
+            </div>
+            <div class="image-item">
+                <img src="out_path/rectified.png" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Rectified Flag</p>
+            </div>
+            <div class="image-item">
+                <img src="out_path/cropped_flag.png" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Cropped Rectified Flag</p>
+            </div>
+            <br>
+
+            <div class="image-item">
+                <img src="out_path/cap.JPG" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Cap</p>
+            </div>
+            <div class="image-item">
+                <img src="out_path/rectified2.png" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Rectified Cap</p>
+            </div>
+            <div class="image-item">
+                <img src="out_path/cap_cropped.png" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Cropped Rectified Cap</p>
+            </div>
+
+            <div class="image-item">
+                <img src="out_path/box.JPG" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Box</p>
+            </div>
+            <div class="image-item">
+                <img src="out_path/rectified5.png" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Rectified Box</p>
+            </div>
+            <div class="image-item">
+                <img src="out_path/box_cropped.png" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Cropped Rectified Box</p>
+            </div>
+    </section>
+
+
+    <section class="project-section">
+        <div class="container">
+            <h2>Blend the images into a mosaic</h2>
+            <br>
+            <p>
+                To blend images into a mosaic, I first modified the warp function above, to provide the translation of the warped images.
+                Using this translation, I just added the warped images on my scene and translated the next set of images, essentially adding
+                them one-by-one to the mosaic and translating them for alignment. For the translation, I just used the top-corner of each warped image.
+                To blend them, I used an alpha mask based on the distance from the center of an image, to get a nice blend. I then used a weight map to 
+                obtain good pixel intensities. I did this by finding the union of pixels between two images that were stitched together and then doing a 
+                weighted average on them. This is something that I might work on for 4b to improve the outputs, as it could be the result of not having
+                a good set of pictures for a mosaic.
+            </p>
+
+            <div class="image-item">
+                <img src="out_path/mosaic_cropped.png" alt="Screenshot 1" onclick="showImage(this)">
+                <p class="caption">Mosaic</p>
+            </div>
+            <br>
+    </section>
+
+    <div id="overlay" onclick="hideImage()">
+        <img id="overlay-image" src="" alt="">
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Nakul Srikanth | Project 4 - CS 280</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

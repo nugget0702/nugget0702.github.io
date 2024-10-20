@@ -1,0 +1,152 @@
+/* General styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #fae845;
+    padding: 20px 0;
+    border-bottom: 2px solid #ddd;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #000000;
+}
+
+.project-section {
+    padding: 40px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.project-section h2 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.project-section p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 20px 0;
+}
+
+/* Styling for image container and captions */
+.image-item {
+    text-align: center;
+}
+
+.image-item img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background-color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.image-item .caption {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Hover effect for images */
+.image-gallery img:hover {
+    transform: scale(1.05);
+}
+
+img {
+    width: 75%; /* Make the image take the full width of its container */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 800px; /* Set a maximum width for the image */
+}
+
+/* Footer styling */
+footer {
+    background-color: #f4f4f4;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 2px solid #ddd;
+}
+
+footer p {
+    color: #666;
+}
+
+/* General styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1,h2{
+    text-align: center;
+}
+
+/* Image gallery styling */
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.image-item img {
+    width: 700px; /* Set the desired uniform width */
+    height: auto;
+    cursor: pointer;
+}
+
+.image-item .caption {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Overlay for enlarged image */
+#overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#overlay img {
+    max-width: 90%;
+    max-height: 90%;
+}
