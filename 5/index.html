@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Portfolio - Computer Vision Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Fun With Diffusion Models!</h1>
+            <br>
+            <h2> Author: Nakul Srikanth </h2>
+        </div>
+    </header>
+
+    <header>
+        <div class="container">
+            <h1>Part A: The Power of Diffusion Models!</h1>
+            <p>Obtaining a high-level understanding of Diffusion Models!</p>
+            <br>
+        </div>
+    </header>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>Setup</h2>
+            <br>
+            <p>
+                For this project, I downloaded the DeepFloyd IF diffusion models from HuggingFace. We instantiate 2 stages.
+                Below are some initial testing of the model with inferences=[5, 20, 50] on a series of prompts.
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/num_inference_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/num_inference_20.png" alt="Screenshot 2" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/num_inference_50.png" alt="Screenshot 2" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+    </section>
+    
+    <section class="project-section">
+        <div class="container">
+            <h2>1.1 Implementing the Forward Process</h2>
+            <br>
+            <p>
+                We implement the Forward Process equations to add noise to clean images.
+                Here are some outputs for noise levels [250, 500, 750].
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/noisy_image_250.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">250</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/noisy_image_500.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">500</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/noisy_image_750.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">750</p>
+                </div>
+            </div>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.2 Classical Denoising</h2>
+            <br>
+            <p>
+                In classical methods, we usually denoise image by applying a gaussian filter.
+                Here are the corresponding outputs. As you can see they are not very effective in 
+                restoring the original image.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/noisy_gaussian_image_250.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">250</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/noisy_gaussian_image_500.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">500</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/noisy_gaussian_image_750.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">750</p>
+                </div>
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.3 One-Step Denoising</h2>
+            <br>
+            <p>
+                Using a pretrained diffusion model, we attempt to denoise the noisy images.
+                For the 3 noisy images at t=[250, 500, 750] we ask the UNet to estimate the noise.
+                We then subtract this estimated noise from our noisy image to obtain an estimate of the 
+                original image. During this process, we need to scale the noise according to specific 
+                coefficients for each timestep. Here are some of the results. They are not bad, but for 
+                extremely noisy images, we get a rather blurry estimate in the output, let's see if we can do 
+                better.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/one_step_denoised_image_250.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">250</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/one_step_denoised_image_500.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">500</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/one_step_denoised_image_750.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">750</p>
+                </div>
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.4 Iterative Denoising</h2>
+            <br>
+            <p>
+                For really noisy images, we want to improve the quality of our outputs, so now we will 
+                try iterative denoising. We use a slightly different equation and iterate our denoising 
+                for a give t > 0 all the way down to t=0 (our clean image). The advantage of iterative denoising 
+                is that we gradually reconstruct images by remove noise over mulitple steps, this added conputation
+                results in fine-grain estimation and noise removal. Here are the better results!
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/iterative_denoised_990.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">t=900</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/iterative_denoised_840.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">t=840</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/iterative_denoised_690.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">t=690</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/iterative_denoised_540.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">t=540</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/iterative_denoised_390.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">t=390</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/iterative_denoised_240.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">t=240</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/iterative_denoised_90.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">t=90</p>
+                </div>
+            </div>
+            <br>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/final_iterative_denoised.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">t=0 : Final Denoised Image</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/one_step_denoised_image_250.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">One Step</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/noisy_gaussian_image_250.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Blurry Gaussian</p>
+                </div>
+            </div>
+            
+    </section>
+
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.5 Diffusion Model Sampling</h2>
+            <br>
+            <p>
+                Using our iterative denoising function from above, we will use randomly generated noise
+                to create brand new images. We denoise from the highest noise value (t) and try to obtain a 
+                new clean image at t=0. Here you can see a random sample of 5-newly generated images.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/diffusion_sample0.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Sample 1</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/diffusion_sample1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Sample 2</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/diffusion_sample2.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Sample 3</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/diffusion_sample3.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Sample 4</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/diffusion_sample4.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Sample 5</p>
+                </div>
+            </div>
+            <br>
+    </section>
+
+
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.6 Classifier-Free Guidance (CFG)</h2>
+            <br>
+            <p>
+                The generated images above are quite good, but some of them do not make too much sense. 
+                So we will try a technique called Classifier-Free Guidance. We follow the formula below to update
+                our noise estimates. We run the iterative denoise function on this new noise estimate and now we 
+                have a new set of 5 samples, that are fictional yet sensible. 
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/iterative_denoise_cfg_0.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Iterative Denoise CFG Sample 1</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/iterative_denoise_cfg_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Iterative Denoise CFG Sample 2</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/iterative_denoise_cfg_2.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Iterative Denoise CFG Sample 3</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/iterative_denoise_cfg_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Iterative Denoise CFG Sample 4</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/iterative_denoise_cfg_4.png" alt="Screenshot 1" onclick="showImage(this)">
+                    <p class="caption">Iterative Denoise CFG Sample 5</p>
+                </div>
+            </div>
+            <br>
+    </section>
+
+
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.7 Image-to-image Translation</h2>
+            <br>
+            <p>
+                Here we want to take our original test image, add a little noise and then iteratively denoise them back to our original image.
+                The really cool thing here is that with a lot of noise, our iterative denoising might return completely new images or new images
+                that resemble our original image's most prominent features. This exhibits the model's ability to hallucinate features of a noisy image.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation_7.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation_10.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+            </div>
+            <br>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation1_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation1_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation1_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation1_7.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation1_10.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation1_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+            </div>
+            <br>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation2_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation2_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation2_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation2_7.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation2_10.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_image_translation2_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+            </div>
+    </section>
+
+
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.7.1 Editing Hand-Drawn and Web Images</h2>
+            <br>
+            <p>
+                We want to explore the model's "creative" abilities, by using 1 image from the web, and 2 Hand-Drawn images. We will add a little bit of 
+                noise to the images we have obtained and then see how the model can create new images, and recreate different versions of our original image.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/online_images1_edited_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/online_images1_edited_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/online_images1_edited_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/online_images1_edited_7.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/online_images1_edited_10.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/online_images1_edited_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image_edited_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image_edited_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image_edited_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image_edited_7.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image_edited_10.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image_edited_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image2_edited_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image2_edited_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image2_edited_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image2_edited_7.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image2_edited_10.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/handdrawn_image2_edited_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+    </section>
+
+
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.7.2 Inpainting</h2>
+            <br>
+            <p>
+                We are now going to explore a diffusion model's ability to modify specific features of an image. We try to do this by masking our original
+                image and telling our algorithm to only noise a certain part of the image, keeping the rest of the image exactly the same. Now we ask the 
+                diffusion model to denoise the noisy portion of the masked image, and then we recompose the images to obtain a slightly altered feature in our 
+                original image.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/original_unmasked_image.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/mask.png" alt="Screenshot 2" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_replace.png" alt="Screenshot 2" onclick="showImage(this)">
+                </div>
+            </div>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/maked_image1_edited_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/maked_image_edited_7.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/original_unmasked_image1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/mask1.png" alt="Screenshot 2" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/image_to_replace1.png" alt="Screenshot 2" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/maked_image2_edited_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+           
+    </section>
+    <section class="project-section">
+        <div class="container">
+            <h2>1.7.3 Text-Conditional Image-to-image Translation</h2>
+            <br>
+            <p>
+                We know want to modify our images based on our prompts. We use our noisy test image and utilize a different prompt to see how 
+                the model iteratively denoised the image based on the prompt to obtain intesting morphs of the test image to the prompt specifications.
+            </p>
+            <br>
+            <p>
+                "A rocket ship" -> picture of Campanille
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/text_edited_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited_7.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited_10.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+            <p>
+                "A pencil" -> picture of giraffe
+            </p>
+            <br>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/text_edited2_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited2_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited2_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited2_7.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited2_10.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited2_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+            <p>
+                "a photo of a dog" -> picture of dolphin
+            </p>
+            <br>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/text_edited3_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited3_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited3_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited3_7.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited3_10.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/text_edited3_20.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.8 Visual Anagrams</h2>
+            <br>
+            <p>
+                For visual anagrams, we use two UNets with different sets of prompts. For the first UNet we set it up as we have done previously with a new prompt.
+                However, for the second UNet we flip our original noisy image and pass that as input along with a brand new prompt. We flip back the second denoised image
+                and average it with the first denoised image to obtain our new starting point image. We then apply our formal diffusion techiques on the new averaged image 
+                to obtain the visual anagram effect.
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-gallery">
+                    <div class="image-item">
+                        <img src="out_path/flipped_image1.png" alt="Screenshot 1" onclick="showImage(this)">
+                        <p class="caption"> an oil painting of an old man</p>
+                    </div>
+                    <div class="image-item">
+                        <img src="out_path/flipped_image2.png" alt="Screenshot 1" onclick="showImage(this)">
+                        <p class="caption">an oil painting of people around a campfire</p>
+                    </div>
+                </div>
+                <div class="image-gallery">
+                    <div class="image-item">
+                        <img src="out_path/flipped_man1.png" alt="Screenshot 1" onclick="showImage(this)">
+                        <p class="caption"> a photo of a man</p>
+                    </div>
+                    <div class="image-item">
+                        <img src="out_path/flipped_man2.png" alt="Screenshot 1" onclick="showImage(this)">
+                        <p class="caption"> a photo of the amalphi coast</p>
+                    </div>
+                </div>
+                <div class="image-gallery">
+                    <div class="image-item">
+                        <img src="out_path/flipped_pencil1.png" alt="Screenshot 1" onclick="showImage(this)">
+                        <p class="caption"> a pencil</p>
+                    </div>
+                    <div class="image-item">
+                        <img src="out_path/flipped_pencil2.png" alt="Screenshot 1" onclick="showImage(this)">
+                        <p class="caption"> a rocket ship</p>
+                    </div>
+                </div>
+                
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.9 Hybrid Images</h2>
+            <br>
+            <p>
+                For the hybrid images, we use the same workflow as the visual anagrams, but with a different equation. We take the denoised images for two different prompts. 
+                We then apply a low-pass and high-pass filter to the first and second denoised images, respectively. We then add the filtered images together to create our 
+                new starting point image. We then apply our formal diffusion techiques on the new filted image to get our Hybrid Image.
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-gallery">
+                    <div class="image-item">
+                        <img src="out_path/hybrid_skull.png" alt="Screenshot 1" onclick="showImage(this)">
+                        <p class="caption">A Skull and Waterfalls</p>
+                    </div>
+                    <div class="image-item">
+                        <img src="out_path/hybrid_man.png" alt="Screenshot 1" onclick="showImage(this)">
+                        <p class="caption">A man and snowy mountains</p>
+                    </div>
+                    <div class="image-item">
+                        <img src="out_path/hyrbid_waterfalls.png" alt="Screenshot 1" onclick="showImage(this)">
+                        <p class="caption">A rocket ship and Waterfalls</p>
+                    </div>
+                </div>
+            </div>
+            <br>
+    </section>
+
+
+
+
+
+
+
+    <header>
+        <div class="container">
+            <h1>Part B: Diffusion Models from Scratch!</h1>
+            <p>Obtaining a low-level understanding of Diffusion Models!</p>
+            <br>
+        </div>
+    </header>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.1 Implementing the UNet</h2>
+            <br>
+            <p>
+                UNets are used to denoise images. We use the UNet architecture below to capture both local and global features. We use various
+                techniques and a pretty deep architecture to create a roboust UNet model. 
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/UNet1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/UNet2.png" alt="Screenshot 2" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.2 Using the UNet to Train a Denoiser</h2>
+            <br>
+            <p>
+                Here is a visual of the different noising processes over a range of epsilons.
+            </p>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/figure3.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.2.1 Training</h2>
+            <br>
+            <p>
+                We train our UNet on the noised MNIST dataset. We use D=128 as our hidden dimension, and train our UNet for a noise 
+                of epsilon=0.5.
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/eq1.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/eq2.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+            </div>
+            <br>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/training_loss_part1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <p>
+                We also visualize the denoised output after the 1st and 5th epochs. 
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/epoch1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="out_path/epoch5.png" alt="Screenshot 2" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>1.2.2 Out-of-Distribution Testing</h2>
+            <br>
+            <p>
+                Upon completing training of the UNet for epsilon=0.5, we sample the UNet with varying
+                levels of noise (epsilon values) to see the robustness of the model's outputs. 
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/testing_results_part1.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+            </div>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_images_0.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_images_1.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_images_2.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_images_3.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_images_4.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_images_5.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_images_6.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>2.1 Adding Time Conditioning to UNet</h2>
+            <br>
+            <p>
+                Now that we have a UNet, we implement a DDPM to iteratively denoise images, and add Time Conditioning to the model's capabilities.
+                The big difference now, is that the model is now trained to predict noise rather than the clean images, it is also now taking in as input 
+                a noisy image and a t parameter at which the clean image was noised by the forward process. Now, instead of training UNets for seperate noise levels
+                it is conditioned on timestep t. This should make it robust to different timesteps of noise and provide robust outputs.
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/time_conditioned_architecture.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/time_conditioned_schema.png" alt="Screenshot 2" onclick="showImage(this)">
+                </div>
+            </div>
+           
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>2.2 Training the UNet</h2>
+            <br>
+            <p>
+                We train the UNet of L2 loss gradient descent. Here is a visualization of the training loss curve. 
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/time_conditioned_training.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+            </div>
+            <div class="image-gallery">
+                <div class="image-item">
+                    <img src="out_path/training_loss_part1.png" alt="Screenshot 1" onclick="showImage(this)">
+                    
+                </div>
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>2.3 Sampling from the UNet</h2>
+            <br>
+            <p>
+                We now sample the UNet to see how good our model reacts to varying levels of noise. Let's sample at epochs 5 and 20 to visualize the 
+                model's effectiveness.
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/time_conditioned_sampling.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_2_1_5.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">Epoch 5</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_2_1_20.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">Epoch 20</p>
+                </div>
+                
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>2.4 Adding Class-Conditioning to UNet</h2>
+            <br>
+            <p>
+                We now want to improve our model by introducing Classifer Free Guidance. We use a gamma=0.5 for this part.
+                Here is a visual of the training loss curve. 
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/class_conditioned_training.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-gallery">
+                    <div class="image-item">
+                        <img src="out_path/training_loss_part1.png" alt="Screenshot 1" onclick="showImage(this)">
+                        
+                    </div>
+                </div>
+            </div>
+            <br>
+    </section>
+
+    <section class="project-section">
+        <div class="container">
+            <h2>2.5 Sampling from the Class-Conditioned UNet</h2>
+            <br>
+            <p>
+                We now sample the UNet to see how our model performs to various digits. Let's sample at epochs 5 and 20 to visualize the 
+                model's effectiveness.
+            </p>
+            <div class="vertical-gallery">
+                <div class="image-item">
+                    <img src="out_path/class_conditioned_sampling.png" alt="Screenshot 1" onclick="showImage(this)">
+                </div>
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_2_2_5.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">Epoch 5</p>
+                </div>
+                <div class="image-item">
+                    <img src="out_path/out_of_sample_2_2_20.png" alt="Screenshot 2" onclick="showImage(this)">
+                    <p class="caption">Epoch 20</p>
+                </div>
+            </div>
+            <br>
+    </section>
+
+
+
+    <div id="overlay" onclick="hideImage()">
+        <img id="overlay-image" src="" alt="">
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Nakul Srikanth | Project 4 - CS 280</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
